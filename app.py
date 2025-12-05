@@ -1,10 +1,101 @@
 import gradio as gr
+import random
 
+# Core Insertion Sort Logic
 class SortingState:
 
     def __init__(self):
 
-        print("state class")
+        # Initialize array values
+        # 8 Elements, each a random number between 10 and 99
+        self. arr = [random.randint(10, 99) for num in range(8)]
+
+        # Sorting indices for insertion sort
+        # i: The element we are currently trying to insert into the sorted portion
+        # j: The index we are currently comparing against (i-1 down to 0)
+        self.i = 1
+        self.j = 0
+
+        # Track when array is fully sorted
+        self.sorting_complete = False
+
+def generate_html_view(state):
+    """
+    Creates a colorful HTML representation of the array.
+    """
+    html = '<div style="display: flex; justify-content: center; align-items: flex-end; height: 300px; gap: 10px; font-family: sans-serif;">'
+    
+    max_val = max(state.arr) if state.arr else 100
+    
+    for index, val in enumerate(state.arr):
+        
+        height = 20 + (val / max_val) * 80
+        
+        # Default Style
+        color = "#3b82f6" # Blue (Unsorted)
+        border = "none"
+        label_color = "white"
+        transform = "none"
+        z_index = "1"
+        box_shadow = "none"
+        
+        if state.sorting_complete:
+            color = "#10b981" # Green (Done)
+        else:
+            #  Logic based on Insertion Sort Phase
+            
+            if index < state.i:
+                color = "#60a5fa" # Lighter Blue (processed)
+
+            # The element the sorting key
+            if index == state.j + 1:
+                color = "#f59e0b" # Orange (The Key)
+                transform = "scale(1.1)"
+                z_index = "10"
+                box_shadow = "0px 0px 15px rgba(245, 158, 11, 0.6)"
+
+            # The element being compared against
+            elif index == state.j:
+                color = "#ef4444" # Red (Comparison Target)
+
+        # Generate the HTML of each array element
+        html += f"""
+        <div style="
+            height: {height}%; 
+            width: 60px; 
+            background-color: {color}; 
+            border: {border};
+            border-radius: 8px 8px 0 0;
+            display: flex; 
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            font-weight: bold;
+            color: {label_color};
+            font-size: 1.2rem;
+            padding-bottom: 10px;
+            transition: all 0.3s ease;
+            transform: {transform};
+            z-index: {z_index};
+            box-shadow: {box_shadow};
+        ">
+            {val}
+            <span style="font-size: 0.8rem; opacity: 0.7; font-weight: normal; margin-top: 5px;">idx:{index}</span>
+        </div>
+        """
+    html += '</div>'
+    return html
+
+
+def process_decision(user_input, state):
+    """
+    Takes in the user input left or stay
+    Takes in the state of the SortingState class
+    """
+
+    if state.sorting_complete: 
+        return state, generate_html_view(state), "Sort Finished", "Please reset to start over."
+
     
 
 # Initialize gradio interface
