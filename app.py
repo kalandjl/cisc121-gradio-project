@@ -31,7 +31,7 @@ class SortingState:
 
 def generate_html_view(state):
     """
-    Creates a colourful HTML representation of the array.
+    Creates a colorful HTML representation of the array.
     """
     html = '<div style="display: flex; justify-content: center; align-items: flex-end; height: 300px; gap: 10px; font-family: sans-serif;">'
     
@@ -43,38 +43,38 @@ def generate_html_view(state):
         height = 20 + (val / max_val) * 80
         
         # Default Style
-        colour = "#3b82f6" # Blue (Unsorted)
+        color = "#3b82f6" # Blue (Unsorted)
         border = "none"
-        label_colour = "white"
+        label_color = "white"
         transform = "none"
         z_index = "1"
         box_shadow = "none"
         
         if state.sorting_complete:
-            colour = "#10b981" # Green (Done)
+            color = "#10b981" # Green (Done)
         else:
             #  Logic based on Insertion Sort Phase
             
             if index < state.i:
-                colour = "#60a5fa" # Lighter Blue (processed)
+                color = "#60a5fa" # Lighter Blue (processed)
 
             # The element the sorting key
             if index == state.j + 1:
-                colour = "#f59e0b" # Orange (The Key)
+                color = "#f59e0b" # Orange (The Key)
                 transform = "scale(1.1)"
                 z_index = "10"
                 box_shadow = "0px 0px 15px rgba(245, 158, 11, 0.6)"
 
             # The element being compared against
             elif index == state.j:
-                colour = "#ef4444" # Red (Comparison Target)
+                color = "#ef4444" # Red (Comparison Target)
 
         # Generate the HTML of each array element
         html += f"""
         <div style="
             height: {height}%; 
             width: 60px; 
-            background-colour: {colour}; 
+            background-color: {color}; 
             border: {border};
             border-radius: 8px 8px 0 0;
             display: flex; 
@@ -82,7 +82,7 @@ def generate_html_view(state):
             justify-content: flex-end;
             align-items: center;
             font-weight: bold;
-            colour: {label_colour};
+            color: {label_color};
             font-size: 1.2rem;
             padding-bottom: 10px;
             transition: all 0.3s ease;
