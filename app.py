@@ -141,7 +141,7 @@ def process_decision(user_input, state):
         # If user is correct (no swap is the right choice)
         else:
             feedback = "Correct; the key is in the right spot for this iteration."
-            state += 1
+            state.i += 1
             state.j = state.i - 1
 
         # Check if entire sort is finished (when i reaches the end)
