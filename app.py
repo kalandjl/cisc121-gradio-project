@@ -19,6 +19,16 @@ class SortingState:
         # Track when array is fully sorted
         self.sorting_complete = False
 
+    def get_current_status(self):
+
+        if self.sorting_complete:
+            return "Sorting Complete!"
+        
+        key_val = self.arr[self.j + 1]
+        compare_val = self.arr[self.j]
+        return f"Comparing Key **{key_val}** with Left Neighbor **{compare_val}**."
+
+
 def generate_html_view(state):
     """
     Creates a colourful HTML representation of the array.
