@@ -4,11 +4,18 @@ import random
 # Core Insertion Sort Logic
 class SortingState:
 
-    def __init__(self):
+    def __init__(self, arr=None):
 
-        # Initialize array values
-        # 8 Elements, each a random number between 10 and 99
-        self. arr = [random.randint(10, 99) for num in range(8)]
+        if arr: 
+            # User inputed array
+            # split array string into array type
+            # map to ensure integer element types
+            self.arr = list(map(lambda val: int(val), arr.split(",")))
+            print(self.arr)
+        else: 
+            # Initialize array values
+            # 8 Elements, eac'h a random number between 10 and 99
+            self.arr = [random.randint(10, 99) for num in range(8)]
 
         # Sorting indices for insertion sort
         # i: The element we are currently trying to insert into the sorted portion
@@ -135,7 +142,7 @@ def process_decision(user_input, state):
                 state.j-=1
             else:
                 feedback += "Reached the start; next element!"
-                state += 1
+                state.i += 1
                 state.j = state.i - 1
         
         # If user is correct (no swap is the right choice)
@@ -154,15 +161,9 @@ def process_decision(user_input, state):
         if should_swap:
             feedback = f"Incorrect. {key} is smaller than {state.arr[left_idx]}, so we should swap the elements."
         else:
-            feedback = f"Incorrect. {key} is NOT smaller than {state.arr[left_idx]}, so we don't move it."
+            feedback = f"Incorrect. {key} is not smaller than {state.arr[left_idx]}, so we don't move it."
 
     return state, generate_html_view(state), state.get_current_status(), feedback
-
-
-
-
-
-
 
     
 def reset_game(array):
@@ -170,6 +171,8 @@ def reset_game(array):
     return (
         new_state, 
         generate_html_view(new_state), 
+        new_state.get_current_status(), 
+        "Starting new sort..."
     )
 
     
