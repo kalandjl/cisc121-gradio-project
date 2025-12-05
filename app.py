@@ -180,6 +180,45 @@ with gr.Blocks(title="Interactive Selection Sort", theme=gr.themes.Soft()) as de
     """
     )
 
+    with gr.Row():
+        with gr.Column(scale=2):
+            visual_output = gr.HTML(label="Array Visualization")
+        
+        with gr.Column(scale=1):
+            status_box = gr.Markdown("### Status: Loading...")
+            
+            feedback_box = gr.Textbox(value="Welcome! Click a button to start.", label="Feedback", interactive=False)
+            
+            with gr.Row():
+                btn_swap = gr.Button("Yes, Swap (Move Left)", variant="primary")
+                btn_stay = gr.Button("No, Stop Here", variant="secondary")
+            
+            gr.Markdown("---")
+            input_array = gr.Textbox(label="Custom Array (comma separated)", placeholder="e.g. 5, 2, 9, 1")
+            btn_reset = gr.Button("Reset / Start New Array")
+
+        def on_load(state):
+            return generate_html_view(state), state.get_current_status(), "Ready"
+        
+        demo.load(on_load, inputs=[game_state], outputs=[visual_output, status_box, feedback_box])
+
+        btn_reset.click(
+            reset_game,
+            inputs=[input_array],
+            outputs=[game_state, visual_output, status_box, feedback_box]
+        )
+
+        btn_swap.click(
+            lambda s: process_decision("Swap (Move Left)", s),
+            inputs=[game_state],
+            outputs=[game_state, visual_output, status_box, feedback_box]
+        )
+        
+        btn_stay.click(
+            lambda s: process_decision("No, Stop Here", s),
+            inputs=[game_state],
+            outputs=[game_state, visual_output, status_box, feedback_box]
+        )
 
 
 
