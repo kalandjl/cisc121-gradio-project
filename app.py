@@ -124,7 +124,7 @@ def process_decision(user_input, state):
     should_swap = key < state.arr[left_idx]
 
     # True if user decides to swap
-    user_swap = (user_input == "Swap (Move Left)")
+    user_swap = (user_input == "Swap")
 
     # For the GUI
     feedback = ""
@@ -203,7 +203,7 @@ with gr.Blocks(title="Interactive Selection Sort", theme=gr.themes.Soft()) as de
             feedback_box = gr.Textbox(value="Welcome! Click a button to start.", label="Feedback", interactive=False)
             
             with gr.Row():
-                btn_swap = gr.Button("Yes, Swap (Move Left)", variant="primary")
+                btn_swap = gr.Button("Yes, Swap", variant="primary")
                 btn_stay = gr.Button("No, Stop Here", variant="secondary")
             
             gr.Markdown("---")
@@ -222,7 +222,7 @@ with gr.Blocks(title="Interactive Selection Sort", theme=gr.themes.Soft()) as de
         )
 
         btn_swap.click(
-            lambda s: process_decision("Swap (Move Left)", s),
+            lambda s: process_decision("Swap", s),
             inputs=[game_state],
             outputs=[game_state, visual_output, status_box, feedback_box]
         )
