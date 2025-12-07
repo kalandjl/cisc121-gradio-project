@@ -40,7 +40,7 @@ def generate_html_view(state):
     """
     Creates a colorful HTML representation of the array.
     """
-    html = '<div style="display: flex; justify-content: center; align-items: flex-end; height: 300px; gap: 10px; font-family: sans-serif;">'
+    html = 'ddiv style="display: flex; justify-content: center; align-items: flex-end; height: 300px; gap: 10px; font-family: sans-serif;">'
     
     max_val = max(state.arr) if state.arr else 100
     
